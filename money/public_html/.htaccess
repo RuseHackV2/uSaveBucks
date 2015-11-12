@@ -1,0 +1,20 @@
+<IfModule mod_rewrite.c>
+#Allows ModRewrite to work
+Options FollowSymLinks
+
+#Turn on rewrite engine
+RewriteEngine On
+RewriteBase / 
+
+#Redirect all requests to index
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule . index.php [QSA,L]
+#Exampe
+RewriteCond %{REQUEST_URI} search/posts/$
+RewriteCond %{QUERY_STRING} ^word=([A-Za-z0-9\+]+)&number=([A-Za-z0-9\+]+)&search=Login$
+RewriteRule ^(.*)$ /search/posts/%1/%2? [R=301,L]
+ 
+RewriteRule ^/(.*)$ /search/posts/?word=$1&number=$2&search=Login&a=1 [L]
+</IfModule>
